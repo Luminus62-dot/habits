@@ -17,3 +17,18 @@ Este repositorio contiene la estructura inicial para crear una aplicación móvi
 4. Configura la app móvil para que haga peticiones HTTP a la dirección del servidor (por defecto `http://<TU_IP>:3000`).
 
 Consulta el archivo `server/README.md` para más información sobre los endpoints disponibles.
+
+## Ejecutar con Docker
+
+Dentro de la carpeta `server` se incluye un `Dockerfile` y un `docker-compose.yml` para que puedas levantar el backend fácilmente:
+
+```bash
+cd server
+docker compose up -d --build
+```
+
+De esta manera la base de datos se guardará en `server/habits.db` y el puerto 3000 quedará expuesto.
+
+## Servidor accesible desde Internet
+
+Para que tú y tu pareja puedan usar la aplicación fuera de casa configura un servicio de DNS dinámico como DuckDNS y abre el puerto 3000 de tu router hacia la computadora que ejecute el contenedor. Así podréis usar la app desde `http://tusubdominio.duckdns.org:3000`.
