@@ -32,3 +32,4 @@ De esta manera la base de datos se guardará en `server/habits.db` y el puerto 3
 ## Servidor accesible desde Internet
 
 Para que tú y tu pareja puedan usar la aplicación fuera de casa configura un servicio de DNS dinámico como DuckDNS y abre el puerto 3000 de tu router hacia la computadora que ejecute el contenedor. Así podréis usar la app desde `http://tusubdominio.duckdns.org:3000`.
+

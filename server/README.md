@@ -26,6 +26,7 @@ Por defecto escuchará en el puerto **3000**.
 - `GET /budgets` – Lista las entradas de presupuesto.
 - `POST /budgets` – Crea una entrada. Enviar `{ "description": "texto", "amount": 10 }`.
 
+
 ## Contenedor Docker
 
 Puedes ejecutar el servidor en un contenedor Docker. Primero construye la imagen y luego levanta el servicio con Docker Compose:
