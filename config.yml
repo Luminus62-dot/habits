@@ -1,0 +1,7 @@
+tunnel: e1da5b3b-f275-4fc0-a865-097aea9849e1
+credentials-file: C:\Users\luisi\.cloudflared\e1da5b3b-f275-4fc0-a865-097aea9849e1.json
+
+ingress:
+  - hostname: ourhabits.org
+    service: http://localhost:3000
+  - service: http_status:404
