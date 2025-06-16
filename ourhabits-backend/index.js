@@ -1,13 +1,21 @@
+require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
+const { PrismaClient } = require("@prisma/client");
+const userRoutes = require("./routes/userRoutes");
+
+const prisma = new PrismaClient();
 const app = express();
 const port = 3000;
 
-app.get("/", (req, res) => {
-  res.send("✅ OurHabits Backend está funcionando correctamente.");
-});
+app.use(cors());
+app.use(express.json());
 
-app.get("/api/test", (req, res) => {
-  res.json({ message: "API de prueba funcionando 🚀" });
+// Rutas
+app.use("/api/users", userRoutes);
+
+app.get("/", (req, res) => {
+  res.send("✅ OurHabits API funcionando correctamente.");
 });
 
 app.listen(port, () => {

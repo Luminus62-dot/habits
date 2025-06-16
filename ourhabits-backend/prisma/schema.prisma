@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  habits    Habit[]
+  budgets   Budget[]
+  progress  Progress[]
+}
+
+model Habit {
+  id        Int      @id @default(autoincrement())
+  title     String
+  points    Int
+  date      DateTime
+  completed Boolean  @default(false)
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Budget {
+  id        Int      @id @default(autoincrement())
+  category  String
+  amount    Float
+  spent     Float    @default(0)
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Progress {
+  id        Int      @id @default(autoincrement())
+  weight    Float
+  height    Float
+  birthday  DateTime
+  updatedAt DateTime @updatedAt
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+}
