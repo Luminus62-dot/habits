@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const { PrismaClient } = require("@prisma/client");
 const userRoutes = require("./routes/userRoutes");
+const habitRoutes = require("./routes/habitRoutes");
 
 const prisma = new PrismaClient();
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 
 // Rutas
 app.use("/api/users", userRoutes);
+app.use("/api/habits", habitRoutes);
 
 app.get("/", (req, res) => {
   res.send("✅ OurHabits API funcionando correctamente.");
