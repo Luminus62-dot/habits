@@ -20,6 +20,10 @@ app.get("/", (req, res) => {
   res.send("✅ OurHabits API funcionando correctamente.");
 });
 
-app.listen(port, () => {
-  console.log(`Servidor escuchando en http://localhost:${port}`);
-});
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Servidor escuchando en http://localhost:${port}`);
+  });
+}
+
+module.exports = app;
