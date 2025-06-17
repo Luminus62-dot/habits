@@ -1,34 +1,56 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { loginRequest, registerRequest } from './api'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [isRegister, setIsRegister] = useState(false)
+  const [message, setMessage] = useState('')
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setMessage('')
+    try {
+      if (isRegister) {
+        await registerRequest(email, password)
+        setMessage('Registro exitoso, ahora puedes iniciar sesión.')
+        setIsRegister(false)
+      } else {
+        const data = await loginRequest(email, password)
+        localStorage.setItem('token', data.token)
+        setMessage('Sesión iniciada correctamente.')
+      }
+    } catch (err) {
+      setMessage(err.message)
+    }
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="container">
+      <h1>{isRegister ? 'Registro' : 'Login'}</h1>
+      <form onSubmit={handleSubmit} className="form">
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Contraseña"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button type="submit">{isRegister ? 'Registrarse' : 'Iniciar sesión'}</button>
+      </form>
+      <button className="toggle" onClick={() => setIsRegister(!isRegister)}>
+        {isRegister ? '¿Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Regístrate'}
+      </button>
+      {message && <p className="message">{message}</p>}
+    </div>
   )
 }
 
